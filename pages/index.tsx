@@ -38,7 +38,7 @@ export default function ThingsPage() {
                 <div className="flex flex-row items-center">
                     <h1 className="font-bold text-2xl flex-grow">Things</h1>
                     <Button onClick={reload}>
-                        <Icons.Refresh size={20} className={loading ? 'animate-spin' : null} /> Reload
+                        <Icons.Refresh size={20} className={loading ? 'animate-spin-reverse' : null} /> Reload
                     </Button>
                 </div>
                 <div className="mt-4 bg-white border rounded-xl overflow-hidden shadow-lg">
