@@ -1,16 +1,17 @@
 import {all, race, call, delay, put, take, takeEvery, takeLatest} from 'redux-saga/effects'
+import {PayloadAction} from '@reduxjs/toolkit'
 
-import * as api from '../lib/api'
-import {actionTypes} from './actions'
+import {Thing} from './types'
 import * as actions from './actions'
+import * as api from '../lib/api'
 import log from '../lib/log'
 
-function* logActions(action) {
+function* logActions(action: any) {
     log.info('action', action)
     yield
 }
 
-function* thingsSaga(action) {
+function* thingsSaga() {
     try {
         const response = yield call(api.things.getThings)
         yield put(actions.thingsLoadComplete(response))
@@ -19,9 +20,9 @@ function* thingsSaga(action) {
     }
 }
 
-function* thingAddSaga(action) {
+function* thingAddSaga(action: PayloadAction<Thing>) {
     try {
-        const response = yield call(api.things.addThing, action.thing)
+        const response = yield call(api.things.addThing, action.payload)
         yield put(actions.thingAddComplete(response))
     } catch (error) {
         yield put(actions.thingAddError(error))
@@ -31,8 +32,8 @@ function* thingAddSaga(action) {
 function* rootSaga() {
     yield all([
         takeEvery('*', logActions),
-        takeLatest(actionTypes.THINGS_LOAD, thingsSaga),
-        takeLatest(actionTypes.THING_ADD, thingAddSaga),
+        takeLatest(actions.thingsLoad.type, thingsSaga),
+        takeLatest(actions.thingAdd.type, thingAddSaga),
     ])
 }
 

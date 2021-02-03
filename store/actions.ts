@@ -1,51 +1,24 @@
+import {createAction} from '@reduxjs/toolkit'
 import {END} from 'redux-saga'
+import {HYDRATE} from 'next-redux-wrapper'
 import {
     Thing,
     ThingsLoadResponse,
     ThingAddResponse
 } from './types'
-import {errorToJson} from '../lib/helpers'
 
-export {END}
-
-export const actionTypes = {
-    THINGS_LOAD: 'THINGS_LOAD',
-    THINGS_LOAD_COMPLETE: 'THINGS_LOAD_COMPLETE',
-    THINGS_LOAD_ERROR: 'THINGS_LOAD_ERROR',
-
-    THING_ADD: 'THING_ADD',
-    THING_ADD_COMPLETE: 'THING_ADD_COMPLETE',
-    THING_ADD_ERROR: 'THING_ADD_ERROR',
-
-    HYDRATE: 'HYDRATE',
-}
+export {END, HYDRATE}
 
 // Things load
 // -----------------------------------------------------------------------------
 
-export function thingsLoad() {
-    return {type: actionTypes.THINGS_LOAD}
-}
-
-export function thingsLoadComplete(response: ThingsLoadResponse) {
-    return {type: actionTypes.THINGS_LOAD_COMPLETE, response}
-}
-
-export function thingsLoadError(error: Error) {
-    return {type: actionTypes.THINGS_LOAD_ERROR, error: errorToJson(error)}
-}
+export const thingsLoad = createAction<void>('THINGS_LOAD')
+export const thingsLoadComplete = createAction<ThingsLoadResponse>('THINGS_LOAD_COMPLETE')
+export const thingsLoadError = createAction<Error>('THINGS_LOAD_ERROR')
 
 // Thing add
 // -----------------------------------------------------------------------------
 
-export function thingAdd(thing: Thing) {
-    return {type: actionTypes.THING_ADD, thing}
-}
-
-export function thingAddComplete(response: ThingAddResponse) {
-    return {type: actionTypes.THING_ADD_COMPLETE, response}
-}
-
-export function thingAddError(error: Error) {
-    return {type: actionTypes.THING_ADD_ERROR, error: errorToJson(error)}
-}
+export const thingAdd = createAction<Thing>('THING_ADD')
+export const thingAddComplete = createAction<ThingAddResponse>('THING_ADD_COMPLETE')
+export const thingAddError = createAction<Error>('THING_ADD_ERROR')
