@@ -5,7 +5,7 @@ const initialState: AppState = {
         loading: false,
         loaded: false,
         adding: false,
-        things: [],
+        things: null,
         error: null
     }
 }

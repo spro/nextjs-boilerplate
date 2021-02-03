@@ -1,5 +1,13 @@
 import {CombinedState} from 'redux'
 
+// Common
+// -----------------------------------------------------------------------------
+
+export type ErrorObj = {
+    message: string
+    stack?: string
+}
+
 // Models
 // -----------------------------------------------------------------------------
 
@@ -14,13 +22,13 @@ export type Thing = {
 
 export type ThingsLoadResponse = {
     success: boolean
-    error: Error
+    error: ErrorObj
     things: Thing[]
 }
 
 export type ThingAddResponse = {
     success: boolean
-    error: Error
+    error: ErrorObj
     thing: Thing
 }
 
@@ -32,7 +40,7 @@ export type ThingsPageState = {
     loaded: boolean
     adding: boolean
     things: Thing[]
-    error: Error
+    error: ErrorObj
 }
 
 export type AppState = CombinedState<{
