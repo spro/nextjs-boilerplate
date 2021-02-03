@@ -2,7 +2,7 @@ import {randomSample} from '../lib/helpers'
 import {Thing} from '../store/types'
 import log from '../lib/log'
 
-const ERROR_RATE = 1.2
+const ERROR_RATE = 0.2
 
 let things: Thing[] = [
     {word: "quisling", pronounciation: "KWIZ-ling", definition: "one who commits treason"},
