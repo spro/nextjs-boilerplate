@@ -32,6 +32,10 @@ const thingsPageReducer = createReducer(initialState.things_page, (builder) => {
         state.adding = false
         state.things.unshift(action.payload.thing)
     })
+    .addCase(actions.thingAddError, (state, action) => {
+        state.adding = false
+        state.error = action.payload
+    })
 })
 
 // Combined state
