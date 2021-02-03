@@ -10,17 +10,21 @@ function* logActions(action) {
     yield
 }
 
-// Generic request/response/error saga
-
 function* thingsSaga(action) {
-    console.log(`%c<thingsSaga>`, 'color: #60a5fa', action.input || '')
     try {
         const response = yield call(api.things.getThings)
-        console.log(`%c<thingsSaga response>`, 'color: #34d399', response)
-        yield put(actions.thingsComplete(response))
+        yield put(actions.thingsLoadComplete(response))
     } catch (error) {
-        console.log(`%c<thingsSaga error>`, 'color: #f87171', error)
-        yield put(actions.thingsError(error))
+        yield put(actions.thingsLoadError(error))
+    }
+}
+
+function* thingAddSaga(action) {
+    try {
+        const response = yield call(api.things.addThing, action.thing)
+        yield put(actions.thingAddComplete(response))
+    } catch (error) {
+        yield put(actions.thingAddError(error))
     }
 }
 
@@ -28,6 +32,7 @@ function* rootSaga() {
     yield all([
         takeEvery('*', logActions),
         takeLatest(actionTypes.THINGS_LOAD, thingsSaga),
+        takeLatest(actionTypes.THING_ADD, thingAddSaga),
     ])
 }
 

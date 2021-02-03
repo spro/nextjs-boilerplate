@@ -1,5 +1,6 @@
 import {randomSample} from '../lib/helpers'
 import {Thing} from '../store/types'
+import log from '../lib/log'
 
 const ERROR_RATE = 0.2
 
@@ -23,5 +24,13 @@ export async function getThings(n=5) {
     return {
         success: true,
         things: randomSample(things, n)
+    }
+}
+
+export async function addThing(thing: Thing) {
+    things.push(thing)
+    return {
+        success: true,
+        thing
     }
 }

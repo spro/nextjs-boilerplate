@@ -15,7 +15,7 @@ export function randomSample(items: any[], n: number) {
 
     let sample = []
 
-    while (sample.length < n) {
+    while (sample.length < Math.min(n, items.length)) {
         const item = randomChoice(items)
         if (sample.indexOf(item) == -1) {
             sample.push(item)

@@ -1,11 +1,12 @@
 import {delay} from './helpers'
 import log from './log'
 import * as backend from '../backend'
+import {Thing} from '../store/types'
 
 const API_BASE_URL = process.env.NEXT_PUBLIC_API_BASE_URL || '/api'
-const DEBUG = true
+const DEBUG = false
 
-async function apiFetch(method, path, body=null) {
+async function apiFetch(method: string, path: string, body=null) {
     if (DEBUG) await delay(2000)
 
     const res = await fetch(API_BASE_URL + path, {
@@ -15,14 +16,11 @@ async function apiFetch(method, path, body=null) {
         },
         body: body && JSON.stringify(body)
     })
-    log.info('res', res)
 
     try {
         const res_body = await res.json()
-        log.info('res body', res_body)
         return res_body
     } catch (err) {
-        log.error('res error', err)
         throw err
     }
 }
@@ -42,5 +40,6 @@ export const things = {
     getThings: apiIsomorphic({
         route: ['get', '/things'],
         backend: backend.things?.getThings
-    })
+    }),
+    addThing: async (body: Thing) => await apiFetch('post', '/things', body)
 }

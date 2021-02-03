@@ -2,10 +2,10 @@ import {actionTypes} from './actions'
 import {combineReducers} from 'redux'
 import {HYDRATE} from 'next-redux-wrapper'
 import produce from 'immer'
-import {AppState} from './types'
+import {AppState, ThingsPageState} from './types'
 import initialState from './state'
 
-const thingsPageReducer = produce((state, action) => {
+const thingsPageReducer = produce((state: ThingsPageState, action) => {
     switch (action.type) {
 
         case actionTypes.THINGS_LOAD:
@@ -13,18 +13,23 @@ const thingsPageReducer = produce((state, action) => {
             state.loaded = false
             break
 
-        case actionTypes.THINGS_COMPLETE:
+        case actionTypes.THINGS_LOAD_COMPLETE:
             state.loading = false
             state.loaded = true
             state.response = action.response
             break
 
-        case actionTypes.THINGS_ERROR:
+        case actionTypes.THINGS_LOAD_ERROR:
             state.loading = false
             state.loaded = true
             state.error = action.error
             break
+
+        case actionTypes.THING_ADD_COMPLETE:
+            state.response?.things?.unshift(action.response.thing)
+            break
     }
+
 }, initialState.things_page)
 
 // Combined state

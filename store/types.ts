@@ -12,10 +12,16 @@ export type Thing = {
 // Input/response
 // -----------------------------------------------------------------------------
 
-export type ThingsResponse = {
+export type ThingsLoadResponse = {
     success: boolean
     error: string
     things: Thing[]
+}
+
+export type ThingAddResponse = {
+    success: boolean
+    error: string
+    thing: Thing
 }
 
 // Reducer states
@@ -24,8 +30,9 @@ export type ThingsResponse = {
 export type ThingsPageState = {
     loading: boolean
     loaded: boolean
+    adding: boolean
     error: Error
-    response: ThingsResponse
+    response: ThingsLoadResponse
 }
 
 export type AppState = CombinedState<{
