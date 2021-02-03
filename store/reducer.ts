@@ -14,7 +14,10 @@ const thingsPageReducer = createReducer(initialState.things_page, (builder) => {
     .addCase(actions.thingsLoadComplete, (state, action) => {
         state.loading = false
         state.loaded = true
-        state.response = action.payload
+        if (action.payload.error)
+            state.error = action.payload.error
+        else
+            state.things = action.payload.things
     })
     .addCase(actions.thingsLoadError, (state, action) => {
         state.loading = false
@@ -27,7 +30,7 @@ const thingsPageReducer = createReducer(initialState.things_page, (builder) => {
     })
     .addCase(actions.thingAddComplete, (state, action) => {
         state.adding = false
-        state.response.things.unshift(action.payload.thing)
+        state.things.unshift(action.payload.thing)
     })
 })
 

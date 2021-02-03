@@ -14,13 +14,13 @@ export type Thing = {
 
 export type ThingsLoadResponse = {
     success: boolean
-    error: string
+    error: Error
     things: Thing[]
 }
 
 export type ThingAddResponse = {
     success: boolean
-    error: string
+    error: Error
     thing: Thing
 }
 
@@ -31,8 +31,8 @@ export type ThingsPageState = {
     loading: boolean
     loaded: boolean
     adding: boolean
+    things: Thing[]
     error: Error
-    response: ThingsLoadResponse
 }
 
 export type AppState = CombinedState<{

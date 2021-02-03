@@ -22,7 +22,7 @@ export const getServerSideProps = reduxWrapper.getServerSideProps(async ({store,
 })
 
 export default function ThingsPage() {
-    const {loading, loaded, adding, response, error} = useSelector((state: AppState) => state.things_page)
+    const {loading, loaded, adding, things, error} = useSelector((state: AppState) => state.things_page)
     const dispatch = useDispatch()
 
     const reload = () =>
@@ -52,10 +52,10 @@ export default function ThingsPage() {
                 <div className="mt-4 bg-white border rounded-xl overflow-hidden shadow-lg">
                     {loading
                         ? <Loading />
-                        : (error || response?.error)
-                            ? <Error error={error || response?.error} />
-                            : response
-                                ? <ThingsList things={response.things} />
+                        : (error)
+                            ? <Error error={error} />
+                            : things
+                                ? <ThingsList things={things} />
                                 : <div />
                     }
                 </div>
@@ -90,7 +90,7 @@ const Error = ({error}) =>
         }
     </div>
 
-const ThingsList = ({things}) =>
+const ThingsList = ({things}: {things: Thing[]}) =>
     <div className="divide-y">
         {things.map(thing => <ThingItem thing={thing} key={thing.word} />)}
     </div>
