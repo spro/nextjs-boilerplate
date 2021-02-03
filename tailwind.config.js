@@ -1,5 +1,10 @@
 module.exports = {
-    purge: ['./pages/**/*.{js,ts,jsx,tsx}', './components/**/*.{js,ts,jsx,tsx}'],
+    purge: {
+        content: ["./pages/**/*.tsx", "./components/**/*.tsx"],
+        options: {
+            safelist: [/^bg-/, /^text-/]
+        }
+    },
     darkMode: 'media',
     theme: {
         extend: {
