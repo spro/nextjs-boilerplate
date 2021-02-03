@@ -38,7 +38,7 @@ export default function ThingsPage() {
     }
 
     return (
-        <div className="flex flex-col items-center min-h-screen text-gray-700 max-w-lg mx-auto py-12">
+        <div className="flex flex-col items-center min-h-screen text-gray-700 max-w-lg mx-auto p-6 md:py-12">
             <div className="w-full">
                 <div className="flex flex-row items-center">
                     <h1 className="font-bold text-2xl flex-grow">Things</h1>
