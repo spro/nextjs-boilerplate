@@ -1,8 +1,9 @@
 import {randomSample} from '../lib/helpers'
+import {Thing} from '../store/types'
 
 const ERROR_RATE = 0.2
 
-let things = [
+let things: Thing[] = [
     {word: "quisling", pronounciation: "KWIZ-ling", definition: "one who commits treason"},
     {word: "gadabout", pronounciation: "GAD-uh-bout", definition: "a person who goes from place to place in social activity"},
     {word: "nostrum", pronounciation: "NAHSS-trum", definition: "a usually questionable remedy or scheme"},
@@ -24,4 +25,3 @@ export async function getThings(n=5) {
         things: randomSample(things, n)
     }
 }
-

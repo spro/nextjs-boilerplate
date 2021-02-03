@@ -4,9 +4,9 @@ import {CombinedState} from 'redux'
 // -----------------------------------------------------------------------------
 
 export type Thing = {
-    id: number
-    title: string
-    description: string
+    word: string
+    pronounciation: string
+    definition: string
 }
 
 // Input/response
