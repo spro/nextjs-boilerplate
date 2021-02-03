@@ -10,6 +10,7 @@ const thingsPageReducer = createReducer(initialState.things_page, (builder) => {
     .addCase(actions.thingsLoad, (state, action) => {
         state.loading = true
         state.loaded = false
+        state.error = null
     })
     .addCase(actions.thingsLoadComplete, (state, action) => {
         state.loading = false
