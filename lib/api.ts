@@ -2,7 +2,7 @@ import {delay} from './helpers'
 import log from './log'
 import * as backend from '../backend'
 
-const API_BASE_URL = process.env.NEXT_PUBLIC_API_BASE_URL
+const API_BASE_URL = process.env.NEXT_PUBLIC_API_BASE_URL || '/api'
 const DEBUG = true
 
 async function apiFetch(method, path, body=null) {
