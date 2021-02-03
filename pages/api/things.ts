@@ -1,4 +1,5 @@
 import {getThings} from '../../backend/things'
+import {errorToJson} from '../../lib/helpers'
 
 // TODO: Catch-all route with routes defined similar to lib/api
 
@@ -7,7 +8,7 @@ export default async function handler(req, res) {
         const things = await getThings()
         res.json(things)
     }
-    catch (err) {
-        res.status(500).json({error: err.toString()})
+    catch (error) {
+        res.status(500).json({error: errorToJson(error)})
     }
 }
