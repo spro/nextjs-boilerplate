@@ -25,7 +25,12 @@ const thingsPageReducer = produce((state: ThingsPageState, action) => {
             state.error = action.error
             break
 
+        case actionTypes.THING_ADD:
+            state.adding = true
+            break
+
         case actionTypes.THING_ADD_COMPLETE:
+            state.adding = false
             state.response?.things?.unshift(action.response.thing)
             break
     }

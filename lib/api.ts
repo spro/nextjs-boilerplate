@@ -4,10 +4,10 @@ import * as backend from '../backend'
 import {Thing} from '../store/types'
 
 const API_BASE_URL = process.env.NEXT_PUBLIC_API_BASE_URL || '/api'
-const DEBUG = false
+const FAKE_DELAY = 2000
 
 async function apiFetch(method: string, path: string, body=null) {
-    if (DEBUG) await delay(2000)
+    if (FAKE_DELAY) await delay(FAKE_DELAY)
 
     const res = await fetch(API_BASE_URL + path, {
         method,

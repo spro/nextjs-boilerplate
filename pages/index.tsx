@@ -1,8 +1,9 @@
 import {useEffect, useState} from 'react'
 import {useSelector, useDispatch} from 'react-redux'
 import * as Icons from 'heroicons-react'
+import clsx from 'clsx'
 
-import {thingsLoad, END} from '../store/actions'
+import {thingsLoad, thingAdd, END} from '../store/actions'
 import {reduxWrapper} from '../store/wrapper'
 import type {AppState, Thing} from '../store/types'
 import Loader from '../components/loader'
@@ -21,7 +22,7 @@ export const getServerSideProps = reduxWrapper.getServerSideProps(async ({store,
 })
 
 export default function ThingsPage() {
-    const {loading, loaded, response, error} = useSelector((state: AppState) => state.things_page)
+    const {loading, loaded, adding, response, error} = useSelector((state: AppState) => state.things_page)
     const dispatch = useDispatch()
 
     const reload = () =>
@@ -32,12 +33,19 @@ export default function ThingsPage() {
             reload()
     }, [])
 
+    const randomThingAdd = () => {
+        dispatch(thingAdd({word: 'wee', pronounciation: 'wfoe', definition: 'asdfma'}))
+    }
+
     return (
         <div className="flex flex-col items-center min-h-screen text-gray-700 max-w-lg mx-auto py-12">
             <div className="w-full">
                 <div className="flex flex-row items-center">
                     <h1 className="font-bold text-2xl flex-grow">Things</h1>
-                    <Button onClick={reload}>
+                    <Button onClick={randomThingAdd} color="green">
+                        <Icons.Plus size={20} className={adding ? 'animate-spin-reverse' : null} /> Add
+                    </Button>
+                    <Button onClick={reload} className="ml-2">
                         <Icons.Refresh size={20} className={loading ? 'animate-spin-reverse' : null} /> Reload
                     </Button>
                 </div>
@@ -57,10 +65,16 @@ export default function ThingsPage() {
     )
 }
 
-const Button = ({onClick, children}) =>
-    <a className="flex flex-row items-center font-bold px-2 py-1 rounded bg-blue-600 hover:bg-blue-700 text-blue-100 gap-2 cursor-pointer" onClick={onClick}>
+const Button = ({onClick, children, color='blue', className=null}) => {
+    const button_class = clsx(
+        "flex flex-row items-center font-bold px-2 py-1 rounded gap-2 cursor-pointer",
+        `bg-${color}-600 hover:bg-${color}-700 text-${color}-100`,
+        className
+    )
+    return <a className={button_class} onClick={onClick}>
         {children}
     </a>
+}
 
 const Loading = () =>
     <div className="p-8 bg-blue-100"><Loader color="bg-blue-200" /></div>
