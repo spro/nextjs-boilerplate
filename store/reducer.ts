@@ -10,15 +10,18 @@ const thingsPageReducer = produce((state, action) => {
 
         case actionTypes.THINGS_LOAD:
             state.loading = true
+            state.loaded = false
             break
 
         case actionTypes.THINGS_COMPLETE:
             state.loading = false
+            state.loaded = true
             state.response = action.response
             break
 
         case actionTypes.THINGS_ERROR:
             state.loading = false
+            state.loaded = true
             state.error = action.error
             break
     }

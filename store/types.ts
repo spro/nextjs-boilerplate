@@ -23,6 +23,7 @@ export type ThingsResponse = {
 
 export type ThingsPageState = {
     loading: boolean
+    loaded: boolean
     error: Error
     response: ThingsResponse
 }

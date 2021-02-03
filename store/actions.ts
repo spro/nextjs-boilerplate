@@ -1,9 +1,10 @@
 import {END} from 'redux-saga'
-export {END}
-
 import {
     ThingsResponse
 } from './types'
+import {errorToJson} from '../lib/helpers'
+
+export {END}
 
 export const actionTypes = {
     THINGS_LOAD: 'THINGS_LOAD',
@@ -25,6 +26,6 @@ export function thingsComplete(response: ThingsResponse) {
 }
 
 export function thingsError(error: Error) {
-    return {type: actionTypes.THINGS_ERROR, error}
+    return {type: actionTypes.THINGS_ERROR, error: errorToJson(error)}
 }
 
